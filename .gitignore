@@ -1,0 +1,7 @@
+.DS_Store
+C:\Users\electrohubb\Desktop\BrighterTech_\priceline laravel\storage\logs/laravel.log'
+/storage/logs/*
+/bootstrap/*
+/Providers/AppServiceProvider.php
+/public/upload/*
+node_modules
