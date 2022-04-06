@@ -84,5 +84,6 @@ Route::group(['namespace' => 'Admin'], function ()
    Route::get("/dashboardMetrics","DashboardController@processAllRequests");
    Route::get("/getTotalVisitors","DashboardController@getDailyVisitors");
    Route::get("/getCompanyProductSelection","DashboardController@getCompanyProductSelection");
+   Route::get("/getProductSelection","DashboardController@getProductSelection");
    
 });

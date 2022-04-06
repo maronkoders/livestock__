@@ -3,7 +3,7 @@
     <div class="sidebar" style="background-color:black;">
       <div class="sidebar-wrapper">
         <div class="logo">
-          <a href="javascript:void(0);" class="simple-text">Priceline</a>
+          <a href="javascript:void(0);" class="simple-text">Live Stock</a>
         </div>
         <ul class="nav">
           <li class="nav-item">

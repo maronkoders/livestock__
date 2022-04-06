@@ -20,10 +20,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/@amcharts/amcharts4/node_modules/pdfmake/build/pdfmake.js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/@amcharts/amcharts4/node_modules/pdfmake/build/pdfmake.js ***!
-  \********************************************************************************/
+/***/ "./node_modules/pdfmake/build/pdfmake.js":
+/*!***********************************************!*\
+  !*** ./node_modules/pdfmake/build/pdfmake.js ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -77684,7 +77684,7 @@ module.exports = function () {
 /******/ ]);
 });
 //# sourceMappingURL=pdfmake.js.map
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../timers-browserify/main.js */ "./node_modules/timers-browserify/main.js").setImmediate))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../timers-browserify/main.js */ "./node_modules/timers-browserify/main.js").setImmediate))
 
 /***/ })
 

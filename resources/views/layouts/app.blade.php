@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>PriceLine | Login</title>
+    <title>LiveStock | Login</title>
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel="icon" href="http://dev.shopsavvy.co.zw/images/media/2021/05/8mOEN19810.png" type="image/icon type">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">

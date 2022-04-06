@@ -417,8 +417,7 @@ export default {
                     type: "error",
                     position: "top",
                 });
-                });
-
+        });
     },
      addIndustry(event)
     {

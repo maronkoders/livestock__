@@ -22,4 +22,9 @@ class ProductAttribute extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function productSelection()
+    {
+        return $this->hasMany(ProductSelectionCount::class);
+    }
 }

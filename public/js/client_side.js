@@ -2242,6 +2242,76 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2340,7 +2410,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var v_toaster__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(v_toaster__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var v_toaster_dist_v_toaster_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! v-toaster/dist/v-toaster.css */ "./node_modules/v-toaster/dist/v-toaster.css");
 /* harmony import */ var v_toaster_dist_v_toaster_css__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(v_toaster_dist_v_toaster_css__WEBPACK_IMPORTED_MODULE_7__);
-//
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 //
 //
 //
@@ -2946,7 +3027,8 @@ var regex = '/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:
       allServerProducts: [],
       visitorSelectedProducts: [],
       product_category_skus: [],
-      product_sku_unit: null
+      product_sku_unit: null,
+      items: []
     };
   },
   components: {
@@ -2962,6 +3044,11 @@ var regex = '/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:
     }
   },
   methods: {
+    removeDuplicates: function removeDuplicates(items) {
+      return _toConsumableArray(Object.values(items)[0].reduce(function (map, obj) {
+        return map.set(obj.id, obj);
+      }, new Map()).values());
+    },
     submitSubscriberDetails: function submitSubscriberDetails(event) {
       var _this = this;
 
@@ -3024,7 +3111,6 @@ var regex = '/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:
       this.selectedIndustryDetail = 0;
       this.showCategoriesTitle = false;
     },
-    selectedProductsForBilling: function selectedProductsForBilling(event) {},
     selectedCategories: function selectedCategories(event) {
       if (this.selectedCategoriesDetails.length > 0) {
         this.showCreateComparisonTableBtn = true;
@@ -3054,7 +3140,13 @@ var regex = '/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:
     getTotalCost: function getTotalCost() {
       var _this2 = this;
 
-      var priceByCompany = this.chosenItems.reduce(function (tot, prod) {
+      var uniqueItems = _toConsumableArray(this.chosenItems[0].reduce(function (map, obj) {
+        return map.set(obj.id, obj);
+      }, new Map()).values());
+
+      var items = [];
+      items.push(uniqueItems);
+      var priceByCompany = items.reduce(function (tot, prod) {
         prod.forEach(function (p) {
           _this2.selectedCompaniesDetails.forEach(function (company) {
             if (company.id == p.company_id) {
@@ -15404,9 +15496,11 @@ var render = function() {
       _vm._v(" "),
       _vm._m(1),
       _vm._v(" "),
+      _vm._m(2),
+      _vm._v(" "),
       _c("div", { staticClass: "form-1", attrs: { id: "newsletters" } }, [
         _c("div", { staticClass: "container" }, [
-          _vm._m(2),
+          _vm._m(3),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-lg-12" }, [
@@ -15517,16 +15611,16 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _vm._m(3)
+                _vm._m(4)
               ])
             ])
           ])
         ])
       ]),
       _vm._v(" "),
-      _vm._m(4),
+      _vm._m(5),
       _vm._v(" "),
-      _vm._m(5)
+      _vm._m(6)
     ],
     1
   )
@@ -15765,6 +15859,187 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-1", attrs: { id: "training" } }, [
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-lg-12" }, [
+            _c("h2", { staticClass: "h2-heading" }, [
+              _vm._v("For all your training")
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "p-heading" }, [
+              _vm._v(
+                "\r\n                        Checkout all the training one can have for farming\r\n                    "
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-lg-12" }, [
+            _c("div", { attrs: { id: "accordion" } }, [
+              _c("div", { staticClass: "card" }, [
+                _c(
+                  "div",
+                  { staticClass: "card-header", attrs: { id: "headingOne" } },
+                  [
+                    _c("h5", { staticClass: "mb-0" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-link",
+                          attrs: {
+                            "data-toggle": "collapse",
+                            "data-target": "#collapseOne",
+                            "aria-expanded": "true",
+                            "aria-controls": "collapseOne"
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\r\n                            Poultry Farming\r\n                            "
+                          )
+                        ]
+                      )
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "collapse show",
+                    attrs: {
+                      id: "collapseOne",
+                      "aria-labelledby": "headingOne",
+                      "data-parent": "#accordion"
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "card-body" }, [
+                      _vm._v(
+                        "\r\n                           Poultry farming is the form of animal husbandry which raises domesticated birds such as chickens, ducks, turkeys and geese to produce meat or eggs for food. Poultry – mostly chickens – are farmed in great numbers. More than 60 billion chickens are killed for consumption annually. Chickens raised for eggs are known as layers, while chickens raised for meat are called broilers.\r\n    "
+                      ),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("p", [
+                        _c("u", [
+                          _vm._v(
+                            "   Chicken coop\r\n                                  "
+                          )
+                        ]),
+                        _vm._v(
+                          ' \r\nA chicken coop or hen house is a structure where chickens or other fowl are kept safe and secure. There may be nest boxes and perches in the house. There is a long-standing controversy over the basic need for a chicken coop. One philosophy, known as the "fresh air school" is that chickens are mostly hardy but can be brought low by confinement, poor air quality and darkness, hence the need for a highly ventilated or open-sided coop with conditions more like the outdoors, even in winter.[8] However, others who keep chickens believe they are prone to illness in outdoor weather and need a controlled-environment coop. This has led to two housing designs for chickens: fresh-air houses with wide openings and nothing more than wire mesh between chickens and the weather (even in Northern winters), or closed houses with doors, windows and hatches which can shut off most ventilation\r\n                           '
+                        )
+                      ])
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card" }, [
+                _c(
+                  "div",
+                  { staticClass: "card-header", attrs: { id: "headingTwo" } },
+                  [
+                    _c("h5", { staticClass: "mb-0" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-link collapsed",
+                          attrs: {
+                            "data-toggle": "collapse",
+                            "data-target": "#collapseTwo",
+                            "aria-expanded": "false",
+                            "aria-controls": "collapseTwo"
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\r\n                            Collapsible Group Item #2\r\n                            "
+                          )
+                        ]
+                      )
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "collapse",
+                    attrs: {
+                      id: "collapseTwo",
+                      "aria-labelledby": "headingTwo",
+                      "data-parent": "#accordion"
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "card-body" }, [
+                      _vm._v(
+                        "\r\n                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.\r\n                        "
+                      )
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card" }, [
+                _c(
+                  "div",
+                  { staticClass: "card-header", attrs: { id: "headingThree" } },
+                  [
+                    _c("h5", { staticClass: "mb-0" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-link collapsed",
+                          attrs: {
+                            "data-toggle": "collapse",
+                            "data-target": "#collapseThree",
+                            "aria-expanded": "false",
+                            "aria-controls": "collapseThree"
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\r\n                            Collapsible Group Item #3\r\n                            "
+                          )
+                        ]
+                      )
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "collapse",
+                    attrs: {
+                      id: "collapseThree",
+                      "aria-labelledby": "headingThree",
+                      "data-parent": "#accordion"
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "card-body" }, [
+                      _vm._v(
+                        "\r\n                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.\r\n                        "
+                      )
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-lg-12" }, [
         _c("h2", { staticClass: "h2-heading" }, [
@@ -15959,9 +16234,12 @@ var render = function() {
     { staticClass: "navbar navbar-expand-lg  navbar-light" },
     [
       _c("div", { staticClass: "container" }, [
-        _vm._m(0),
+        _c("a", {
+          staticClass: "navbar-brand logo-image",
+          attrs: { href: "javascript:void(0)" }
+        }),
         _vm._v(" "),
-        _vm._m(1),
+        _vm._m(0),
         _vm._v(" "),
         _c(
           "div",
@@ -15971,7 +16249,7 @@ var render = function() {
           },
           [
             _c("ul", { staticClass: "navbar-nav ml-auto" }, [
-              _vm._m(2),
+              _vm._m(1),
               _vm._v(" "),
               _c("li", { staticClass: "nav-item" }, [
                 _c(
@@ -15988,6 +16266,8 @@ var render = function() {
                   [_vm._v("Compare Prices")]
                 )
               ]),
+              _vm._v(" "),
+              _vm._m(2),
               _vm._v(" "),
               _vm._m(3),
               _vm._v(" "),
@@ -16064,7 +16344,7 @@ var render = function() {
                         [_vm._v("x")]
                       ),
                       _vm._v(
-                        "\n\n                           " +
+                        "\n                           " +
                           _vm._s(_vm.selectedIndustryName) +
                           "\n                           \n                        "
                       )
@@ -16902,39 +17182,34 @@ var render = function() {
                         ),
                         _vm._v(" "),
                         _vm._l(_vm.selectedCompaniesDetails, function(company) {
-                          return _c(
-                            "td",
-                            { key: company.id },
-                            [
-                              _c("br"),
-                              _vm._v(" "),
-                              _c("tr"),
-                              _vm._v(" "),
-                              _vm._l(product.product_attributes, function(
-                                product_
-                              ) {
-                                return _c(
-                                  "tr",
-                                  { key: product_ },
-                                  _vm._l(product_, function(item) {
-                                    return _c("td", { key: item }, [
-                                      item.company_id == company.id
-                                        ? _c("span", [
-                                            _vm._v(
-                                              "\n                                        " +
-                                                _vm._s(item.price) +
-                                                "\n                                    "
-                                            )
-                                          ])
-                                        : _c("span")
-                                    ])
-                                  }),
-                                  0
-                                )
-                              })
-                            ],
-                            2
-                          )
+                          return _c("td", { key: company.id }, [
+                            _c("br"),
+                            _vm._v(" "),
+                            _c("tr"),
+                            _vm._v(" "),
+                            _c(
+                              "tr",
+                              _vm._l(
+                                _vm.removeDuplicates(
+                                  product.product_attributes
+                                ),
+                                function(product_) {
+                                  return _c("td", { key: product_ }, [
+                                    product_.company_id == company.id
+                                      ? _c("span", [
+                                          _vm._v(
+                                            "\n                                        " +
+                                              _vm._s(product_.price) +
+                                              "\n                                    "
+                                          )
+                                        ])
+                                      : _c("span")
+                                  ])
+                                }
+                              ),
+                              0
+                            )
+                          ])
                         }),
                         _vm._v(" "),
                         _c(
@@ -17145,39 +17420,34 @@ var render = function() {
                         ),
                         _vm._v(" "),
                         _vm._l(_vm.selectedCompaniesDetails, function(company) {
-                          return _c(
-                            "td",
-                            { key: company.id },
-                            [
-                              _c("br"),
-                              _vm._v(" "),
-                              _c("tr"),
-                              _vm._v(" "),
-                              _vm._l(product.product_attributes, function(
-                                product_
-                              ) {
-                                return _c(
-                                  "tr",
-                                  { key: product_ },
-                                  _vm._l(product_, function(item) {
-                                    return _c("td", { key: item }, [
-                                      item.company_id == company.id
-                                        ? _c("span", [
-                                            _vm._v(
-                                              "\n                                        " +
-                                                _vm._s(item.price) +
-                                                "      \n                                    "
-                                            )
-                                          ])
-                                        : _c("span")
-                                    ])
-                                  }),
-                                  0
-                                )
-                              })
-                            ],
-                            2
-                          )
+                          return _c("td", { key: company.id }, [
+                            _c("br"),
+                            _vm._v(" "),
+                            _c("tr"),
+                            _vm._v(" "),
+                            _c(
+                              "tr",
+                              _vm._l(
+                                _vm.removeDuplicates(
+                                  product.product_attributes
+                                ),
+                                function(product_) {
+                                  return _c("td", { key: product_ }, [
+                                    product_.company_id == company.id
+                                      ? _c("span", [
+                                          _vm._v(
+                                            "\n                                        " +
+                                              _vm._s(product_.price) +
+                                              "\n                                    "
+                                          )
+                                        ])
+                                      : _c("span")
+                                  ])
+                                }
+                              ),
+                              0
+                            )
+                          ])
                         })
                       ],
                       2
@@ -17599,39 +17869,34 @@ var render = function() {
                               _vm._l(_vm.selectedCompaniesDetails, function(
                                 company
                               ) {
-                                return _c(
-                                  "td",
-                                  { key: company.id },
-                                  [
-                                    _c("br"),
-                                    _vm._v(" "),
-                                    _c("tr"),
-                                    _vm._v(" "),
-                                    _vm._l(product.product_attributes, function(
-                                      product_
-                                    ) {
-                                      return _c(
-                                        "tr",
-                                        { key: product_ },
-                                        _vm._l(product_, function(item) {
-                                          return _c("td", { key: item }, [
-                                            item.company_id == company.id
-                                              ? _c("span", [
-                                                  _vm._v(
-                                                    "\n                                        " +
-                                                      _vm._s(item.price) +
-                                                      "      \n                                    "
-                                                  )
-                                                ])
-                                              : _c("span")
-                                          ])
-                                        }),
-                                        0
-                                      )
-                                    })
-                                  ],
-                                  2
-                                )
+                                return _c("td", { key: company.id }, [
+                                  _c("br"),
+                                  _vm._v(" "),
+                                  _c("tr"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "tr",
+                                    _vm._l(
+                                      _vm.removeDuplicates(
+                                        product.product_attributes
+                                      ),
+                                      function(product_) {
+                                        return _c("td", { key: product_ }, [
+                                          product_.company_id == company.id
+                                            ? _c("span", [
+                                                _vm._v(
+                                                  "\n                                        " +
+                                                    _vm._s(product_.price) +
+                                                    "\n                                    "
+                                                )
+                                              ])
+                                            : _c("span")
+                                        ])
+                                      }
+                                    ),
+                                    0
+                                  )
+                                ])
                               })
                             ],
                             2
@@ -17683,26 +17948,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "a",
-      {
-        staticClass: "navbar-brand logo-image",
-        attrs: { href: "javascript:void(0)" }
-      },
-      [
-        _c("img", {
-          attrs: {
-            src: __webpack_require__(/*! ../../assets/images/logo.png */ "./resources/js/assets/images/logo.png"),
-            alt: "alternative"
-          }
-        })
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
       "button",
       {
         staticClass: "navbar-toggler p-0 border-0",
@@ -17738,6 +17983,18 @@ var staticRenderFns = [
           attrs: { href: "#testimonials" }
         },
         [_vm._v("Testimonials")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "nav-item" }, [
+      _c(
+        "a",
+        { staticClass: "nav-link page-scroll", attrs: { href: "#training" } },
+        [_vm._v("Training")]
       )
     ])
   },
@@ -34073,17 +34330,6 @@ module.exports = g;
 /***/ (function(module, exports) {
 
 module.exports = "/images/header.png?40b96aeb0131cd0cc599cb2f455d2dc2";
-
-/***/ }),
-
-/***/ "./resources/js/assets/images/logo.png":
-/*!*********************************************!*\
-  !*** ./resources/js/assets/images/logo.png ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/logo.png?f28443a5e0188f244e88d922b35f764b";
 
 /***/ }),
 

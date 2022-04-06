@@ -190,14 +190,14 @@
                         </div>
                       </div>
 
-                      <div class="col-md-12 pr-1">
+                      <!-- <div class="col-md-12 pr-1">
                         <div class="form-group">
                           <label> Site Link</label>
                       
                                <input type="text" class="form-control" v-model="site_link"  />
                         
                         </div>
-                      </div>
+                      </div> -->
                       
                       
                     </div>
@@ -239,13 +239,13 @@
                         </div>
                       </div>
 
-                            <div class="col-md-12 pr-1">
+                            <!-- <div class="col-md-12 pr-1">
                         <div class="form-group">
                           <label> Site Link</label>
                             <input type="text" class="form-control" v-model="site_link"/>
                         
                         </div>
-                      </div>
+                      </div> -->
 
                      
 
@@ -465,7 +465,7 @@ export default {
       id:"",
       industry_id:"",
       filePath:"",
-      site_link:null,
+      site_link:"test.co.zw",
       is_active:null,
       columns: [
         {
@@ -490,18 +490,6 @@ export default {
         {
           label: "Industry",
           field: this.getIndustryName,
-        },
-         {
-          label: "Company Products",
-          field: "companyProductsBtn",
-          html: true,
-        },{
-          label: "Status",
-          field: "isActive",
-          html:true
-        },{
-          label: "Total Selection Impression",
-          field: "company_selection_count.length"
         },
          {
           label: "is active",
@@ -1027,7 +1015,7 @@ export default {
               name:this.name,
               industry_id: this.industry_id,
               logo_path:"samplepath",
-              site_link:this.site_link
+              site_link:"text.co.zw"
             };
             axios
             .post("api/newCompany?data_name=company" , data)

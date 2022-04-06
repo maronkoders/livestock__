@@ -4,7 +4,7 @@
      <meta charset="utf-8" />
      <link rel="icon"  href="http://dev.shopsavvy.co.zw/images/media/2021/05/8mOEN19810.png" type="image/icon type">
      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-     <title> Priceline | Dashboard</title>
+     <title> LiveStock  | Dashboard</title>
      <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
      <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />

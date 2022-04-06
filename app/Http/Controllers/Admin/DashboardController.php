@@ -10,6 +10,7 @@ use App\Manufacturer;
 use App\NewsLetterSubscriber;
 use App\Product;
 use App\ProductCategory;
+use App\ProductSelectionCount;
 use App\Traits\ServerResponse;
 use App\Traits\ViewHandler;
 use App\Visitor;
@@ -34,6 +35,7 @@ class DashboardController extends Controller
         $this->visitors = new Visitor();
         $this->company_selection = new CompanySelectionCount();
         $this->manufacturer    = new Manufacturer();
+        $this->productSelection = new ProductSelectionCount();
     }
 
     public function processAllRequests(Request $request)
@@ -106,6 +108,17 @@ class DashboardController extends Controller
     {
         try{
              $data = $this->company_selection::where('company_id', $request->company_id)->get();
+            return $this->success(200, "Total selection",null,$data);
+        }catch(\Exception $th)
+        {
+            return $this->failure(500, "failed to get visitors", $th->getMessage());
+        }   
+    }
+
+    public function getProductSelection(Request $request)
+    {
+        try{
+             $data = $this->productSelection::with('products','products.product')->get();
             return $this->success(200, "Total selection",null,$data);
         }catch(\Exception $th)
         {

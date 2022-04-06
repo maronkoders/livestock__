@@ -3,7 +3,9 @@
         <div class="container">
         
             <a class="navbar-brand logo-image" href="javascript:void(0)">
-                <img src="../../assets/images/logo.png" alt="alternative"></a> 
+                <!-- <img src="../../assets/images/logo.jpeg"> -->
+                
+                </a> 
 
             <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
                 <span class="navbar-toggler-icon"></span>
@@ -20,6 +22,9 @@
                     <li class="nav-item">
                         <a class="nav-link page-scroll" href="#testimonials">Testimonials</a>
                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link page-scroll" href="#training">Training</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link page-scroll" href="#details"></a>
                     </li>
@@ -32,19 +37,14 @@
                 <form>
                     <div class="row">
                       <div class="col-md-12 pr-1">
-
                             <div  v-show="showIndustryTitle" class="title common">{{industryTitle}} </div>
-
                                 <div v-show="selectedIndustryOption" class="btn-solid-lg" style="margin:10px;">
                                 <span class="closeBtn" @click='restartSelectingIndustry(); return false;'>x</span>
-
                                {{selectedIndustryName}}
                                
                             </div>
-
                         <div class="title common" v-show="showCompanyTitle"> {{title}} </div>
                        
-                          
                         <div class="title selected-companies" v-show="showSelectedCompanyNames"> 
                             <div class="f6">
                                 <a v-for="companyDetail in  selectedCompaniesDetails" :key="companyDetail.id" data-ga-click="Topic, repository page" data-octo-click="topic_click" data-octo-dimensions="topic:linux" href="javascript:void(0)" title="Topic: linux" data-view-component="true" class="topic-tag topic-tag-link">
@@ -234,14 +234,12 @@
                                   <br/>
                                  <tr>
                                 </tr>
-
-                               <tr v-for="product_ in product.product_attributes" :key="product_">  
-
-                            
-
-                                    <td  v-for="item in product_" :key="item">  
-                                        <span v-if="item.company_id == company.id">
-                                            {{item.price}}
+                               <tr> 
+                                    <td  v-for="product_ in removeDuplicates(product.product_attributes)" :key="product_">  
+                                        <span v-if="product_.company_id == company.id">
+                                            {{ 
+                                                product_.price
+                                            }}
                                         </span>
                                         <span v-else>
                                            
@@ -328,15 +326,15 @@
                                  <tr>
                                 </tr>
 
-                               <tr v-for="product_ in product.product_attributes" :key="product_">  
-
-
-                                    <td  v-for="item in product_" :key="item">  
-                                        <span v-if="item.company_id == company.id">
-                                            {{item.price}}      
+                              <tr> 
+                                    <td  v-for="product_ in removeDuplicates(product.product_attributes)" :key="product_">  
+                                        <span v-if="product_.company_id == company.id">
+                                            {{ 
+                                                product_.price
+                                            }}
                                         </span>
                                         <span v-else>
-
+                                           
                                         </span>
                                    </td>
                                  </tr>
@@ -498,15 +496,16 @@
                                  <tr>
                                 </tr>
 
-                               <tr v-for="product_ in product.product_attributes" :key="product_">  
 
-
-                                    <td  v-for="item in product_" :key="item">  
-                                        <span v-if="item.company_id == company.id">
-                                            {{item.price}}      
+                                  <tr> 
+                                    <td  v-for="product_ in removeDuplicates(product.product_attributes)" :key="product_">  
+                                        <span v-if="product_.company_id == company.id">
+                                            {{ 
+                                                product_.price
+                                            }}
                                         </span>
                                         <span v-else>
-
+                                           
                                         </span>
                                    </td>
                                  </tr>
@@ -609,7 +608,8 @@ export default
                allServerProducts:[],
                visitorSelectedProducts:[],
                 product_category_skus:[],
-                product_sku_unit:null
+                product_sku_unit:null,
+                items:[]
            }
        },
        components:
@@ -628,6 +628,10 @@ export default
         },
        methods:
        {
+            removeDuplicates :function(items)
+                {
+                     return [...Object.values(items)[0].reduce((map, obj) => map.set(obj.id, obj), new Map()).values()];
+                },
            submitSubscriberDetails:function(event)
            {
                 event.preventDefault();
@@ -690,10 +694,6 @@ export default
                this.selectedIndustryDetail =0
                this.showCategoriesTitle =false
            },
-           selectedProductsForBilling:function(event)
-           {
-
-           },
         selectedCategories:function(event)
            {
                 if(this.selectedCategoriesDetails.length >0)
@@ -730,7 +730,10 @@ export default
            },   
            getTotalCost:function()
            {  
-               const priceByCompany = this.chosenItems.reduce((tot, prod) => 
+               let  uniqueItems = [...this.chosenItems[0].reduce((map, obj) => map.set(obj.id, obj), new Map()).values()];
+               let items = [];
+               items.push(uniqueItems);
+               const priceByCompany = items.reduce((tot, prod) => 
                {
                     prod.forEach((p) => {
                         this.selectedCompaniesDetails.forEach((company)=>{

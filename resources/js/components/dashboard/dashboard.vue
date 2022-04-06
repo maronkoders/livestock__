@@ -106,6 +106,26 @@
             </div>
 
 
+  <div class="row">
+   	<div class="col-xl-12 col-md-12 col-12">
+       <center>
+       <label for="">
+
+         <h4>
+           <b>
+           Most Selected Products
+           </b>
+         </h4>
+       </label>
+       </center>
+    </div>
+							<div class="col-xl-12 col-md-12 col-12">
+                  <apexchart width="100%" height="300" type="donut" :options="chartOptions" :series="series"></apexchart>
+                      <!-- <div class="totalVisitors" ref="bestSold">
+                </div> -->
+                 
+              </div>
+        </div> 
       
 
         <div class="row">
@@ -116,7 +136,7 @@
               </div>
         </div> 
 
-
+        
         </div>
       </div>
       <!-- <siteFooter></siteFooter> -->
@@ -135,6 +155,12 @@ import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 am4core.useTheme(am4themes_animated);
+import VueApexCharts from 'vue-apexcharts'
+Vue.use(VueApexCharts)
+
+Vue.component('apexchart', VueApexCharts)
+
+
 
 export default {
   name: "dashboard",
@@ -156,7 +182,26 @@ export default {
       totalProductCategories:0,
       totalSubscibers:0,
       maximumVisitors:0,
-      totalManufacturers:0
+      totalManufacturers:0,
+      chartOptions: {
+            chart: {
+              width: 380,
+              type: 'pie',
+            },
+            labels: [],
+            responsive: [{
+              breakpoint: 480,
+              options: {
+                chart: {
+                  width: 200
+                },
+                legend: {
+                  position: 'bottom'
+                }
+              }
+            }]
+      },
+      series: []
     }
   }, methods:{
     getTotalVisitors:function()
@@ -186,8 +231,6 @@ export default {
                let title =  chart.titles.create()
                title.text ="Total Visitors";
                title.fontSize = 24;
-            
-
 
                 //TODO:: ensure to render the graph using correct dates
                 let data = [];
@@ -234,6 +277,49 @@ export default {
         });
 
     },
+       getTotalSelection:function()
+    {        
+      axios
+        .get("api/getProductSelection")
+        .then((response) => {
+           this.isLoading =false
+           
+          if (response.data.status === 200) {
+            let products_ = response.data.record;
+
+           const groups = products_.reduce((groups, game) => {
+                        const name = game.products.product.name;
+                        if (!groups[name]) {
+                          groups[name] = [];
+                        }
+                        groups[name].push(game);
+                        return groups;
+                      }, {});
+
+            this.chartOptions.labels = Object.keys(groups);
+            const total = Object.keys(groups).map((date) => {
+                      return  groups[date].length
+                    });
+
+              this.series = total;
+          } else {
+            Vue.$toast.open({
+              message: response.data.message,
+              type: "error",
+              position: "top",
+            });
+          }
+        })
+        .catch((error) => {
+          Vue.$toast.open({
+            message: error.message,
+            type: "error",
+            position: "top",
+          });
+        });
+
+    },
+
     getMetrics:function()
     {
       axios
@@ -273,11 +359,9 @@ export default {
   },
     mounted() 
     {
-  
     this.getMetrics();
     this.getTotalVisitors();
-
- 
+    this.getTotalSelection();
     }
 };
 </script>

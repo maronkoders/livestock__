@@ -15,4 +15,9 @@ class ProductSelectionCount extends Model
     {
         return $this->handleIncomingRequest($this, $request);
     }
+
+    public function products()
+    {
+        return $this->belongsTo(ProductAttribute::class,'product_attribute_id','id');
+    }
 }
