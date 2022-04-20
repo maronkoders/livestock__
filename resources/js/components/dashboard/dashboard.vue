@@ -120,7 +120,13 @@
        </center>
     </div>
 							<div class="col-xl-12 col-md-12 col-12">
-                  <apexchart width="100%" height="300" type="donut" :options="chartOptions" :series="series"></apexchart>
+
+                  <div class="totalVisitors" ref="piechart">
+                </div>
+
+                
+         
+                  <!-- <apexchart width="100%" height="300" type="donut" :options="chartOptions" :series="series"></apexchart> -->
                       <!-- <div class="totalVisitors" ref="bestSold">
                 </div> -->
                  
@@ -155,10 +161,9 @@ import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 am4core.useTheme(am4themes_animated);
-import VueApexCharts from 'vue-apexcharts'
-Vue.use(VueApexCharts)
 
-Vue.component('apexchart', VueApexCharts)
+
+
 
 
 
@@ -201,7 +206,9 @@ export default {
               }
             }]
       },
-      series: []
+      series: [],
+      names:[],
+      values:[]
     }
   }, methods:{
     getTotalVisitors:function()
@@ -287,6 +294,8 @@ export default {
           if (response.data.status === 200) {
             let products_ = response.data.record;
 
+            
+
            const groups = products_.reduce((groups, game) => {
                         const name = game.products.product.name;
                         if (!groups[name]) {
@@ -296,12 +305,30 @@ export default {
                         return groups;
                       }, {});
 
-            this.chartOptions.labels = Object.keys(groups);
-            const total = Object.keys(groups).map((date) => {
-                      return  groups[date].length
-                    });
+                      console.log(groups);
+                    let chartData =  [];
 
-              this.series = total;
+                    Object.keys(groups).forEach(el__=>{
+
+                        let item_ ={
+                          "product":el__,
+                          "total":groups[el__].length
+                        }
+                        chartData.push(item_);
+                    })
+
+                    console.log(chartData);
+                    let chart = am4core.create(this.$refs.piechart, am4charts.PieChart);
+
+// Add data
+                          chart.data = chartData;
+
+                          // Add and configure Series
+                          let pieSeries = chart.series.push(new am4charts.PieSeries());
+                          pieSeries.dataFields.value = "total";
+                          pieSeries.dataFields.category = "product";
+
+
           } else {
             Vue.$toast.open({
               message: response.data.message,
@@ -319,6 +346,10 @@ export default {
         });
 
     },
+    dataFormat: function(a, b) {
+            if(b) return b + "%";
+            return a;
+        },
 
     getMetrics:function()
     {
